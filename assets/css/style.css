@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  font-family: cursive;
 }
 
 img::selection {
@@ -776,6 +775,10 @@ footer p {
 
 /* Responsive */
 @media (max-width: 1199px) {
+  /* * {
+    font-family: system-ui;
+  } */
+
   header .header-container {
     margin: 10px 10px 0;
   }
@@ -1073,6 +1076,10 @@ footer p {
 }
 
 @media (min-width: 1200px) {
+  * {
+    font-family: cursive;
+  }
+
   header .header-container .search-menu {
     display: none;
   }
