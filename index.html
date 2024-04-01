@@ -19,6 +19,11 @@
       referrerpolicy="no-referrer"
     />
 
+    <!-- SunCalc Library  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
+
+    <script src="assets/lib/moment.min.js"></script>
+
     <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -38,11 +43,11 @@
         <div class="city-name-mobile">
           <p>
             <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <span>Shiraz</span>
+            <span class="name-mobile"></span>
           </p>
         </div>
 
-        <div class="search-form">
+        <div class="search-form" data-search-view>
           <div class="search-icon" search-icon>
             <i class="fa fa-search" aria-hidden="true"></i>
           </div>
@@ -55,6 +60,7 @@
               search-city
               data-search-field
             />
+            <div class="search-result" data-search-result></div>
           </div>
 
           <div class="current-location" current-location>
@@ -70,10 +76,19 @@
 
           <div class="profile-image">
             <img
-              src="assets/images/profile/naymar-pic.jpg"
+              src="assets/images/profile/profile.png"
               alt="profile picture"
+              id="profile-picture"
             />
-            <div class="profile-overlay" change-pic title="New pic?">+</div>
+            <div class="profile-overlay" change-pic title="New pic?">
+              <label for="input-file">+</label>
+              <input
+                type="file"
+                accept="image/jpeg, image/png, image/jpg,"
+                id="input-file"
+                style="display: none"
+              />
+            </div>
             <span class="badge"></span>
           </div>
         </div>
@@ -81,8 +96,13 @@
 
       <div class="notifications-messages">
         <div class="notifications">
-          <div>No messages yet!</div>
-          <div>No messages yet!</div>
+          <div> 
+            <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+            Did you know you can easily change the current profile to your own photo?</div>
+          <div>
+            <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+            If the timezone doesn't work correctly, please refresh the page for once!</div>
+          </div>
         </div>
       </div>
     </header>
@@ -92,150 +112,10 @@
     <main>
       <section class="results" data-section>
         <div>
-          <div class="weather-response">
-            <div class="header-weather">
-              <div class="name-weather">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                Tehran / IR
-              </div>
+          <div class="weather-response"></div>
 
-              <div class="header-icon">
-                <div class="circle"></div>
-                <div class="circle-child2"></div>
-              </div>
-            </div>
-
-            <div class="body-weather">
-              <!-- <div class="weather-icon">
-                <img
-                  src="assets/icon/openweathermap/03n.svg"
-                  alt="weather icon"
-                />
-              </div> -->
-              <div class="weather-date">Today, 16 March</div>
-              <div class="weather-degree">-4<sup>°</sup></div>
-              <div class="weather-description">Sunny</div>
-              <div class="descriptions">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/windy.png"
-                    alt="windy icon"
-                  />
-                  <span> Wind </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 12km/h </span>
-                </div>
-              </div>
-
-              <div class="descriptions">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/humid.png"
-                    alt="humidity icon"
-                  />
-                  <span> Hum </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 22 % <span id="special">//</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="current-loc">
-            <div class="divided">
-              <div class="descriptions second">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/windy2.png"
-                    alt="windy icon"
-                  />
-                  <span> Wind </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 12km/h </span>
-                </div>
-              </div>
-
-              <div class="descriptions">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/humid2.png"
-                    alt="humidity icon"
-                  />
-                  <span> Hum </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 22 % <span id="special">//</span></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="location-name">
-              <div class="weather-name">
-                <i class="fa fa-map-marker" aria-hidden="true"></i> Tehran / IR
-              </div>
-
-              <div class="weather-degree">27<sup>°</sup></div>
-            </div>
-          </div>
-
-          <div class="current-loc">
-            <div class="divided">
-              <div class="descriptions second">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/windy2.png"
-                    alt="windy icon"
-                  />
-                  <span> Wind </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 12km/h </span>
-                </div>
-              </div>
-
-              <div class="descriptions">
-                <div class="icon-description">
-                  <img
-                    src="assets/icon/weather-icons/humid2.png"
-                    alt="humidity icon"
-                  />
-                  <span> Hum </span>
-                </div>
-
-                <div class="line-description"></div>
-
-                <div class="km-description">
-                  <span> 22 % <span id="special">//</span></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="location-name">
-              <div class="weather-name">
-                <i class="fa fa-map-marker" aria-hidden="true"></i> Tehran / IR
-              </div>
-
-              <div class="weather-degree">27<sup>°</sup></div>
-            </div>
-          </div>
+          <div class="current-loc"></div>
+          <div class="current-loc"></div>
           <div class="current-new-box"></div>
         </div>
 
@@ -245,200 +125,16 @@
           <div class="sun-air">
             <div class="suntime">
               <h2>Sunrise & Sunset</h2>
-              <div class="custom-background">
-                <div class="suntime-name">
-                  <div class="city-name">
-                    <div>
-                      <i
-                        class="fa fa-map-marker custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      <span>New York</span>
-                    </div>
+              <div class="custom-background"></div>
 
-                    <div>
-                      <i
-                        class="fa fa-ellipsis-v custom-icon2"
-                        aria-hidden="true"
-                      ></i>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="suntime-time">
-                  <div class="sunrise">
-                    <div>
-                      <img
-                        src="assets/icon/weather-icons/sunrise.png"
-                        alt="sunrise"
-                      />
-                    </div>
-
-                    <div>
-                      <p>Sunrise</p>
-                      <p>4:45AM</p>
-                    </div>
-                  </div>
-
-                  <div class="sunset">
-                    <div>
-                      <img
-                        src="assets/icon/weather-icons/sunset.png"
-                        alt="sunset"
-                      />
-                    </div>
-                    <div>
-                      <p>Sunset</p>
-                      <p>6:45AM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="custom-background">
-                <div class="suntime-name">
-                  <div class="city-name">
-                    <div>
-                      <i
-                        class="fa fa-map-marker custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      <span>Windsor</span>
-                    </div>
-
-                    <div class="custom-icon2">
-                      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="suntime-time">
-                  <div class="sunrise">
-                    <div>
-                      <img
-                        src="assets/icon/weather-icons/sunrise.png"
-                        alt="sunrise"
-                      />
-                    </div>
-
-                    <div>
-                      <p>Sunrise</p>
-                      <p>4:45AM</p>
-                    </div>
-                  </div>
-
-                  <div class="sunset">
-                    <div>
-                      <img
-                        src="assets/icon/weather-icons/sunset.png"
-                        alt="sunset"
-                      />
-                    </div>
-                    <div>
-                      <p>Sunset</p>
-                      <p>6:45AM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="highlight-cities">
-                <div class="cities">
-                  <div class="city-name">
-                    <h3>
-                      <i
-                        class="fa fa-map-marker custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      Dubai
-                    </h3>
-                  </div>
-                  <div class="city-sunrise">
-                    <p>
-                      <i class="fa fa-sun-o custom-icon" aria-hidden="true"></i>
-                      <span>5:00AM</span>
-                    </p>
-                  </div>
-                  <div class="city-sunset">
-                    <p>
-                      <i
-                        class="fa fa-moon-o custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      <span>7:00PM</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="cities">
-                  <div class="city-name">
-                    <h3>
-                      <i
-                        class="fa fa-map-marker custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      Dubai
-                    </h3>
-                  </div>
-                  <div class="city-sunrise">
-                    <p>
-                      <i class="fa fa-sun-o custom-icon" aria-hidden="true"></i>
-                      <span>5:00AM</span>
-                    </p>
-                  </div>
-                  <div class="city-sunset">
-                    <p>
-                      <i
-                        class="fa fa-moon-o custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      <span>7:00PM</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="cities">
-                  <div class="city-name">
-                    <h3>
-                      <i
-                        class="fa fa-map-marker custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      Dubai
-                    </h3>
-                  </div>
-                  <div class="city-sunrise">
-                    <p>
-                      <i class="fa fa-sun-o custom-icon" aria-hidden="true"></i>
-                      <span>5:00AM</span>
-                    </p>
-                  </div>
-                  <div class="city-sunset">
-                    <p>
-                      <i
-                        class="fa fa-moon-o custom-icon"
-                        aria-hidden="true"
-                      ></i>
-                      <span>7:00PM</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <h2>Highlight cities</h2>
+              <div class="highlight-cities"></div>
             </div>
 
             <div class="timezone-air">
               <!-- Start nav  -->
               <nav>
-                <div class="weather-time">
-                  <p class="time">06:11 PM</p>
-                  <p class="date">Sunday, 17 March, 2024</p>
-                  <p class="name">
-                    <img src="assets/icon/weather-icons/moon.png" alt="night" />
-                    <span
-                      >Good Night, <span class="username">Farzad!</span></span
-                    >
-                  </p>
-                </div>
+                <div class="weather-time"></div>
               </nav>
               <!-- End nav  -->
 
@@ -448,11 +144,6 @@
                   <div>
                     <h3>Air Quality Index</h3>
                   </div>
-
-                  <div class="location">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <span>UAE/Ajman</span>
-                  </div>
                 </div>
 
                 <div class="status">
@@ -460,103 +151,25 @@
                     <img src="assets/icon/weather-icons/wind.png" alt="wind" />
                   </div>
                   <div class="status-group">
-                    <div>
+                    <!-- <div>
                       Good
                       <div>A perfect day for a walk!</div>
-                    </div>
+                    </div> -->
                   </div>
 
-                  <div class="badge">
+                  <div class="badge-desk">
                     <small>Refresh</small>
                   </div>
                 </div>
 
-                <div class="status-forecast">
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-
-                  <div class="status-forecast-structure">
-                    <h5>9.3</h5>
-                    <h6>PM2</h6>
-                  </div>
-                </div>
+                <div class="status-forecast"></div>
               </div>
               <!-- End Air quality  -->
             </div>
           </div>
 
           <!--  -->
-          <div class="forecast">
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/01n.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/10d.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/11n.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/01d.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/13d.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-
-            <div class="day">
-              <div class="img">
-                <img src="assets/icon/openweathermap/50d.svg" alt="icon" />
-              </div>
-              <div class="day-name">Sun</div>
-              <div class="degree">28<sup>°</sup></div>
-            </div>
-          </div>
+          <div class="forecast"></div>
           <footer>
             <p>
               CopyRight2024 &copy;
@@ -570,104 +183,27 @@
 
     <!-- Start main mobile-->
     <main class="main-mobile">
-      <!-- Start manu clicked ! -->
-      <!-- End manu clicked ! -->
+      <!-- Start menu clicked ! -->
+      <div class="menu-clicked">
+        <h3 class="more-details">More details →</h3>
+        <h3 class="new-search">New search →</h3>
+        <h3>
+          <i class="fa fa-smile-o" aria-hidden="true"></i>
+        </h3>
+      </div>
+      <!-- End menu clicked ! -->
 
       <section class="mobile-version">
         <nav>
           <div class="weather-time">
-            <p class="name">
-              <img src="assets/icon/weather-icons/moon.png" alt="night" />
-              <span>Good Night, <span class="username">Farzad!</span></span>
-            </p>
+            <p class="name"></p>
             <p class="time">06:11 PM</p>
           </div>
         </nav>
 
-        <div class="weather-response">
-          <div class="weather-icon">
-            <img src="assets/icon/openweathermap/03n.svg" alt="weather icon" />
-          </div>
+        <div class="weather-response mobile-weather-response"></div>
 
-          <div class="body-weather">
-            <div class="weather-degree">-4<sup>°</sup></div>
-            <div class="weather-description">Sunny</div>
-            <div class="weather-date">Today, 16 March</div>
-            <div class="descriptions">
-              <div class="windy-weather">
-                <div class="img">
-                  <img src="assets/icon/weather-icons/windy.png" alt="windy" />
-                </div>
-
-                <div class="des">
-                  <p>Wind</p>
-                  <p>12km/h</p>
-                </div>
-              </div>
-
-              <div class="humid-weather">
-                <div class="img">
-                  <img src="assets/icon/weather-icons/humid.png" alt="humid" />
-                </div>
-
-                <div class="des">
-                  <p>Wind</p>
-                  <p>12km/h</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="forecast">
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/01n.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/10d.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/11n.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/01d.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/13d.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-
-          <div class="day">
-            <div class="img">
-              <img src="assets/icon/openweathermap/50d.svg" alt="icon" />
-            </div>
-            <div class="day-name">Sun</div>
-            <div class="degree">28<sup>°</sup></div>
-          </div>
-        </div>
+        <div class="forecast"></div>
 
         <footer>
           <p>
@@ -677,11 +213,197 @@
         </footer>
       </section>
 
-      <!-- Start new Search  -->
-      <!-- End new Search  -->
-
       <!-- Start more details -->
+      <section class="mobile-version mobile-air">
+        <div class="air-quality-title">
+          <h2>Air Quality</h2>
+        </div>
+
+        <div class="air-quality">
+          <div class="title">
+            <div>
+              <h3>Air Quality Index</h3>
+            </div>
+          </div>
+
+          <div class="status">
+            <div>
+              <img src="assets/icon/weather-icons/wind.png" alt="wind" />
+            </div>
+            <div class="status-group"></div>
+
+            <div class="badge">
+              <small>Refresh</small>
+            </div>
+          </div>
+
+          <div class="status-forecast"></div>
+        </div>
+
+        <div class="current-loc"></div>
+
+        <div class="current-loc">
+          <div class="divided">
+            <div class="descriptions second">
+              <div class="icon-description">
+                <img
+                  src="assets/icon/weather-icons/windy2.png"
+                  alt="windy icon"
+                />
+                <span> Wind </span>
+              </div>
+
+              <div class="line-description"></div>
+
+              <div class="km-description">
+                <span> 12km/h </span>
+              </div>
+            </div>
+
+            <div class="descriptions">
+              <div class="icon-description">
+                <img
+                  src="assets/icon/weather-icons/humid2.png"
+                  alt="humidity icon"
+                />
+                <span> Hum </span>
+              </div>
+
+              <div class="line-description"></div>
+
+              <div class="km-description">
+                <span> 22 % <span id="special">//</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-name">
+            <div class="weather-name">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>Tehran / IR</span>
+              -
+              <span>Snowy</span>
+            </div>
+
+            <div class="weather-degree">27<sup>°</sup></div>
+          </div>
+        </div>
+
+        <div class="forecast"></div>
+
+        <footer>
+          <p>
+            CopyRight2024 &copy;
+            <a href="https://farzadsolaimani-uk.netlify.app/"> Farzad.S </a>
+          </p>
+        </footer>
+      </section>
       <!-- End more details -->
+
+      <!-- Start new Search  -->
+      <section class="mobile-version mobile-search">
+        <div class="current-loc-title">
+          <h2>Current Loc</h2>
+        </div>
+
+        <div class="current-loc">
+          <div class="divided">
+            <div class="descriptions second">
+              <div class="icon-description">
+                <img
+                  src="assets/icon/weather-icons/windy2.png"
+                  alt="windy icon"
+                />
+                <span> Wind </span>
+              </div>
+
+              <div class="line-description"></div>
+
+              <div class="km-description">
+                <span> 12km/h </span>
+              </div>
+            </div>
+
+            <div class="descriptions">
+              <div class="icon-description">
+                <img
+                  src="assets/icon/weather-icons/humid2.png"
+                  alt="humidity icon"
+                />
+                <span> Hum </span>
+              </div>
+
+              <div class="line-description"></div>
+
+              <div class="km-description">
+                <span> 22 % <span id="special">//</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-name">
+            <div class="weather-name">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>Tehran / IR</span>
+              -
+              <span>Snowy</span>
+            </div>
+
+            <div class="weather-degree">27<sup>°</sup></div>
+          </div>
+        </div>
+
+        <div class="custom-background">
+          <div class="suntime-name">
+            <div class="city-name">
+              <div>
+                <i class="fa fa-map-marker custom-icon" aria-hidden="true"></i>
+                <span>Windsor</span>
+              </div>
+
+              <div class="custom-icon2">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="suntime-time">
+            <div class="sunrise">
+              <div>
+                <img
+                  src="assets/icon/weather-icons/sunrise.png"
+                  alt="sunrise"
+                />
+              </div>
+
+              <div>
+                <p>Sunrise</p>
+                <p>4:45AM</p>
+              </div>
+            </div>
+
+            <div class="sunset">
+              <div>
+                <img src="assets/icon/weather-icons/sunset.png" alt="sunset" />
+              </div>
+              <div>
+                <p>Sunset</p>
+                <p>6:45AM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast"></div>
+
+        <footer>
+          <p>
+            CopyRight2024 &copy;
+            <a href="https://farzadsolaimani-uk.netlify.app/"> Farzad.S </a>
+          </p>
+        </footer>
+      </section>
+      <!-- End new Search  -->
     </main>
     <!-- End main mobile-->
 
