@@ -177,7 +177,8 @@ searchField.addEventListener("input", function () {
   let geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${searchField.value}&limit=5`;
   fetch(`${geoApi}&appid=${api_key}`)
     .then((response) => response.json())
-    .then((data) => searchCities(data));
+    .then((data) => searchCities(data))
+    .catch((err) => console.log(err));
 });
 
 function searchCities(locations) {
