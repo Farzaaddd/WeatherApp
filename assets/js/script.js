@@ -388,30 +388,21 @@ function updateWeather(lat, lon) {
       function updateLocalTime(data) {
         // Function to update local time and display it
         function displayLocalTime() {
-          // Original timezone offset from the API response
-          const originalTimezoneOffsetSeconds = data.timezone; // Provided timezone offset in seconds
+          // Example function to calculate local time based on timezone offset
+          function calculateLocalTime(timezoneOffset) {
+            const now = new Date();
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000; // Convert to UTC time in milliseconds
+            const localTime = new Date(utc + 1000 * timezoneOffset); // Convert to local time using timezone offset
+            return localTime;
+          }
 
-          // Adjusted timezone offset (subtracting 4 hours)
-          const adjustedTimezoneOffsetSeconds =
-            originalTimezoneOffsetSeconds - 4 * 3600; // Subtracting 4 hours in seconds
-
-          // Convert adjusted timezone offset from seconds to milliseconds
-          const adjustedTimezoneOffsetMilliseconds =
-            adjustedTimezoneOffsetSeconds * 1000;
-
-          // Get the current UTC time in milliseconds
-          const utcTimeMilliseconds = Date.now();
-
-          // Calculate the local time by adding the adjusted timezone offset to the UTC time
-          const localTimeMilliseconds =
-            utcTimeMilliseconds + adjustedTimezoneOffsetMilliseconds;
-
-          // Create a Date object representing the local time
-          const localTime = new Date(localTimeMilliseconds);
-          const hour = localTime.getHours();
-
-          // Format the local time
-          const formattedLocalTime = localTime.toLocaleTimeString();
+          // Example usage
+          const cityTimezoneOffset = data.timezone; // Example timezone offset for New York City (in seconds, here -14400 represents UTC-4)
+          const localTime = calculateLocalTime(cityTimezoneOffset);
+          console.log(localTime);
+          let hour = localTime.getHours();
+          let localSharing = localTime.toLocaleTimeString();
+          console.log(localSharing);
 
           let greeting;
 
@@ -442,7 +433,7 @@ function updateWeather(lat, lon) {
             weatherTime.insertAdjacentHTML(
               "beforeend",
               `
-              <p class="time"> ${formattedTime} </p>
+              <p class="time"> ${localSharing} </p>
               <p class="date"> ${
                 weekDayNames[currentDate.getDay()] +
                 ", " +
@@ -467,7 +458,7 @@ function updateWeather(lat, lon) {
             weatherTime.insertAdjacentHTML(
               "beforeend",
               `
-            <p class="time"> ${formattedLocalTime} </p>
+            <p class="time"> ${localSharing} </p>
             <p class="date"> ${
               weekDayNames[currentDate.getDay()] +
               ", " +
@@ -503,12 +494,12 @@ function updateWeather(lat, lon) {
               </span>
             </p>
 
-            <p class="time">${formattedLocalTime}</p>
+            <p class="time">${localSharing}</p>
           `
           );
         }
 
-        displayLocalTime();
+        // displayLocalTime();
 
         // Update the displayed time for the specific city every second
         intervalId = setInterval(displayLocalTime, 1000);
