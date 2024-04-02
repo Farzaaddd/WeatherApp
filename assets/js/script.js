@@ -379,6 +379,11 @@ function updateWeather(lat, lon) {
     </div>
       `;
 
+      //   icons for weather response
+      let circleIcon = document.querySelector(".circle");
+      console.log(circleIcon);
+      circleIcon.style.backgroundImage = `url("/assets/icon/openweathermap/${data.weather[0].icon}.svg")`;
+
       // getting timezone
       let intervalId;
       // Function to update local time for a specific city
@@ -509,11 +514,6 @@ function updateWeather(lat, lon) {
         timezone: data.timezone, // Example timezone offset for a specific city
       };
       updateLocalTime(cityData);
-
-      //   icons for weather response
-      let circleIcon = document.querySelector(".circle");
-      console.log(circleIcon);
-      circleIcon.style.backgroundImage = `url("/assets/icon/openweathermap/${data.weather[0].icon}.svg")`;
 
       //   backgrounds for weather response
       let background = document.querySelector(".weather-response");
