@@ -184,7 +184,7 @@ header .header-container .search-form .current-location {
   position: absolute;
   padding: 8px;
   top: 0px;
-  right: 155px;
+  right: 145px;
   cursor: pointer;
   color: var(--secondary-color);
   background-color: var(--body-back);

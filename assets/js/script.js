@@ -380,10 +380,6 @@ function updateWeather(lat, lon) {
       `;
 
       //   icons for weather response
-      let circleIcon = document.querySelector(".circle");
-      console.log(circleIcon);
-      circleIcon.style.backgroundImage = `url("/assets/icon/openweathermap/${data.weather[0].icon}.svg")`;
-
       // getting timezone
       let intervalId;
       // Function to update local time for a specific city
@@ -406,7 +402,6 @@ function updateWeather(lat, lon) {
           // console.log(localTime);
           let hour = localTime.getHours();
           let localSharing = localTime.toLocaleTimeString();
-          // console.log(localSharing);
 
           let greeting;
 
@@ -415,7 +410,7 @@ function updateWeather(lat, lon) {
           if (hour >= 5 && hour < 12) {
             greeting = "Have a good day, ";
             checkDay = "day";
-          } else if (hour >= 12 && hour < 21) {
+          } else if (hour >= 12 && hour < 20) {
             greeting = "Have a good day, ";
             checkDay = "day";
           } else {
@@ -430,38 +425,9 @@ function updateWeather(lat, lon) {
           }
 
           weatherTime.innerHTML = "";
-          if (window.location.hash === "#/current-location") {
-            const now = new Date();
-            const formattedTime = now.toLocaleTimeString();
-            weatherTime.innerHTML = "";
-            weatherTime.insertAdjacentHTML(
-              "beforeend",
-              `
-              <p class="time"> ${localSharing} </p>
-              <p class="date"> ${
-                weekDayNames[currentDate.getDay()] +
-                ", " +
-                currentDate.getDate() +
-                "" +
-                monthNames[currentDate.getMonth()] +
-                " " +
-                currentDate.getFullYear()
-              } </p>
-          
-              <p class="name">
-                ${images}
-          
-                  <span>
-                    ${greeting}
-                    <span class="username">${username}</span>
-                  </span>
-              </p>
+          weatherTime.insertAdjacentHTML(
+            "beforeend",
             `
-            );
-          } else {
-            weatherTime.insertAdjacentHTML(
-              "beforeend",
-              `
             <p class="time"> ${localSharing} </p>
             <p class="date"> ${
               weekDayNames[currentDate.getDay()] +
@@ -482,8 +448,7 @@ function updateWeather(lat, lon) {
                 </span>
             </p>
           `
-            );
-          }
+          );
 
           greetingMobile.innerHTML = "";
           greetingMobile.insertAdjacentHTML(
@@ -514,6 +479,9 @@ function updateWeather(lat, lon) {
         timezone: data.timezone, // Example timezone offset for a specific city
       };
       updateLocalTime(cityData);
+
+      let circleIcon = document.querySelector(".circle");
+      circleIcon.style.backgroundImage = `url("assets/icon/openweathermap/${data.weather[0].icon}.svg")`;
 
       //   backgrounds for weather response
       let background = document.querySelector(".weather-response");
