@@ -425,9 +425,38 @@ function updateWeather(lat, lon) {
           }
 
           weatherTime.innerHTML = "";
-          weatherTime.insertAdjacentHTML(
-            "beforeend",
+          if (window.location.hash === "#/current-location") {
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString();
+            weatherTime.innerHTML = "";
+            weatherTime.insertAdjacentHTML(
+              "beforeend",
+              `
+              <p class="time"> ${localSharing} </p>
+              <p class="date"> ${
+                weekDayNames[currentDate.getDay()] +
+                ", " +
+                currentDate.getDate() +
+                "" +
+                monthNames[currentDate.getMonth()] +
+                " " +
+                currentDate.getFullYear()
+              } </p>
+          
+              <p class="name">
+                ${images}
+          
+                  <span>
+                    ${greeting}
+                    <span class="username">${username}</span>
+                  </span>
+              </p>
             `
+            );
+          } else {
+            weatherTime.insertAdjacentHTML(
+              "beforeend",
+              `
             <p class="time"> ${localSharing} </p>
             <p class="date"> ${
               weekDayNames[currentDate.getDay()] +
@@ -448,7 +477,8 @@ function updateWeather(lat, lon) {
                 </span>
             </p>
           `
-          );
+            );
+          }
 
           greetingMobile.innerHTML = "";
           greetingMobile.insertAdjacentHTML(
