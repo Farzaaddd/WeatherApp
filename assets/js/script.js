@@ -395,14 +395,13 @@ function updateWeather(lat, lon) {
             const localTime = new Date(utc + 1000 * timezoneOffset); // Convert to local time using timezone offset
             return localTime;
           }
-
           // Example usage
           const cityTimezoneOffset = data.timezone; // Example timezone offset for New York City (in seconds, here -14400 represents UTC-4)
           const localTime = calculateLocalTime(cityTimezoneOffset);
-          console.log(localTime);
+          // console.log(localTime);
           let hour = localTime.getHours();
           let localSharing = localTime.toLocaleTimeString();
-          console.log(localSharing);
+          // console.log(localSharing);
 
           let greeting;
 
@@ -499,7 +498,7 @@ function updateWeather(lat, lon) {
           );
         }
 
-        // displayLocalTime();
+        displayLocalTime();
 
         // Update the displayed time for the specific city every second
         intervalId = setInterval(displayLocalTime, 1000);
