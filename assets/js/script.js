@@ -11,7 +11,7 @@ const currentLoc = document.querySelectorAll(".current-loc");
 const forecastShow = document.querySelectorAll(".forecast");
 const statusGroup = document.querySelectorAll(".status-group");
 const statusForecast = document.querySelectorAll(".status-forecast");
-const badgeDesk = document.querySelector(".badge-desk");
+const badgeDesk = document.querySelectorAll(".badge-desk");
 const nameMobile = document.querySelector(".name-mobile");
 const greetingMobile = document.querySelector(".mobile-version .weather-time");
 const mobileWeatherRes = document.querySelector(".mobile-weather-response");
@@ -30,7 +30,11 @@ function bell() {
   notificationsMessages.classList.toggle("active");
 }
 
-badgeDesk.addEventListener("click", () => {
+badgeDesk[0].addEventListener("click", () => {
+  reLoadPage();
+});
+
+badgeDesk[1].addEventListener("click", () => {
   reLoadPage();
 });
 
@@ -202,19 +206,19 @@ function searchCities(locations) {
         searchField.classList.remove("searching");
         searchResult.classList.add("active");
         searchItem.innerHTML = `
+        <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler>
         <div class="view-items">
           <div>
             <i class="fa fa-map-marker" aria-hidden="true"></i>
           </div>  
 
           <div class="city-des">
-          <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler>
           <p class="item-title">${name}</p>
           <p class="lable-2 item-subtitle">${state || ""} ${country}</p>
-          </a>
           </div>
-
-        </div>
+          
+          </div>
+          </a>
        `;
 
         searchResult
