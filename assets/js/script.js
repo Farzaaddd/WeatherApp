@@ -46,6 +46,7 @@ function reLoadPage() {
 searchMenu.addEventListener("click", () => {
   mobileMenu();
   menuClicked.classList.toggle("active");
+  searchForm.classList.remove("active");
 });
 
 // Showing user two options for mobile
@@ -67,6 +68,7 @@ moreDetails.addEventListener("click", () => {
   mobileVersion.style.display = "none";
   mobileSearch.style.display = "none";
   menuClicked.classList.remove("active");
+  searchForm.classList.remove("active");
 });
 
 const newSearch = document.querySelector(".new-search");
@@ -75,10 +77,8 @@ newSearch.addEventListener("click", () => {
   mobileVersion.style.display = "none";
   menuClicked.classList.remove("active");
   mobileSearch.style.display = "block";
-
-  searchForm.style.display = "block";
-  searchForm.style.marginLeft = "20px";
-  cityNameMobile.style.display = "none";
+  searchForm.classList.add("active");
+  // searchForm.style.marginLeft = "20px";
 });
 
 var username = "";
@@ -248,7 +248,6 @@ function updateWeather(lat, lon) {
     .then((response) => response.json())
     .then((data) => {
       nameMobile.innerHTML = data.name;
-
       currentWeather.innerHTML = `
         <div class="header-weather">
         <div class="name-weather">
