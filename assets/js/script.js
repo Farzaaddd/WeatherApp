@@ -512,6 +512,7 @@ function updateWeather(lat, lon) {
 
       //   icons for weather response
       let circleIcon = document.querySelector(".circle");
+      console.log(circleIcon);
       circleIcon.style.backgroundImage = `url("/assets/icon/openweathermap/${data.weather[0].icon}.svg")`;
 
       //   backgrounds for weather response
