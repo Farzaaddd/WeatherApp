@@ -902,7 +902,7 @@ footer p {
   }
 
   main section .weather-response img {
-    margin: -90px 0px;
+    margin: -50px 0px;
   }
 
   main section .weather-response .body-weather .weather-date {
@@ -1003,7 +1003,7 @@ footer p {
   }
 
   .weather-icon img {
-    width: 400px;
+    width: 300px;
   }
 }
 
