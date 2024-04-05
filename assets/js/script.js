@@ -1,8 +1,8 @@
+// All elements 👇
 const notification = document.querySelector(".notification");
 const notificationsMessages = document.querySelector(".notifications-messages");
 const searchMenu = document.querySelector(".search-menu");
 const searchForm = document.querySelector(".search-form");
-const cityNameMobile = document.querySelector(".city-name-mobile");
 const currentWeather = document.querySelector(".weather-response");
 const weatherTime = document.querySelector(".weather-time");
 const suntime = document.querySelectorAll(".custom-background");
@@ -12,6 +12,8 @@ const forecastShow = document.querySelectorAll(".forecast");
 const statusGroup = document.querySelectorAll(".status-group");
 const statusForecast = document.querySelectorAll(".status-forecast");
 const badgeDesk = document.querySelectorAll(".badge-desk");
+// Mobile elements 👇
+const cityNameMobile = document.querySelector(".city-name-mobile");
 const nameMobile = document.querySelector(".name-mobile");
 const greetingMobile = document.querySelector(".mobile-version .weather-time");
 const mobileWeatherRes = document.querySelector(".mobile-weather-response");
@@ -21,68 +23,9 @@ const mainMobile = document.querySelector(".main-mobile");
 const mobileAir = document.querySelector(".mobile-air");
 const mobileSearch = document.querySelector(".mobile-search");
 
-// Notification (bell) feature
-notification.addEventListener("click", () => {
-  bell();
-});
-
-function bell() {
-  notificationsMessages.classList.toggle("active");
-}
-
-badgeDesk[0].addEventListener("click", () => {
-  reLoadPage();
-});
-
-badgeDesk[1].addEventListener("click", () => {
-  reLoadPage();
-});
-
-function reLoadPage() {
-  window.location.reload();
-}
-
-// Search Menu Bar clicked
-searchMenu.addEventListener("click", () => {
-  mobileMenu();
-  menuClicked.classList.toggle("active");
-  searchForm.classList.remove("active");
-});
-
-// Showing user two options for mobile
-function mobileMenu() {
-  if (!menuClicked.classList.value.includes("active")) {
-    mobileVersion.style.display = "none";
-    mobileAir.style.display = "none";
-    mobileSearch.style.display = "none";
-  } else {
-    mobileVersion.style.display = "block";
-    mobileAir.style.display = "block";
-    mobileSearch.style.display = "block";
-  }
-}
-
-const moreDetails = document.querySelector(".more-details");
-moreDetails.addEventListener("click", () => {
-  mobileAir.style.display = "block";
-  mobileVersion.style.display = "none";
-  mobileSearch.style.display = "none";
-  menuClicked.classList.remove("active");
-  searchForm.classList.remove("active");
-});
-
-const newSearch = document.querySelector(".new-search");
-newSearch.addEventListener("click", () => {
-  mobileAir.style.display = "none";
-  mobileVersion.style.display = "none";
-  menuClicked.classList.remove("active");
-  mobileSearch.style.display = "block";
-  searchForm.classList.add("active");
-  // searchForm.style.marginLeft = "20px";
-});
-
 var username = "";
 var checkDay;
+let currentDate = new Date();
 
 // backgrounds
 const backgrounds = [
@@ -166,7 +109,68 @@ const aqiText = {
   },
 };
 
-let currentDate = new Date();
+// Notification (bell) feature
+notification.addEventListener("click", () => {
+  bell();
+});
+
+function bell() {
+  notificationsMessages.classList.toggle("active");
+}
+
+// Refreshing the page
+badgeDesk[0].addEventListener("click", () => {
+  reLoadPage();
+});
+
+badgeDesk[1].addEventListener("click", () => {
+  reLoadPage();
+});
+
+function reLoadPage() {
+  window.location.reload();
+}
+
+// Search Menu Bar clicked
+searchMenu.addEventListener("click", () => {
+  mobileMenu();
+  menuClicked.classList.toggle("active");
+  searchForm.classList.remove("active");
+});
+
+// Showing user two options for mobile
+function mobileMenu() {
+  if (!menuClicked.classList.value.includes("active")) {
+    mobileVersion.style.display = "none";
+    mobileAir.style.display = "none";
+    mobileSearch.style.display = "none";
+  } else {
+    mobileVersion.style.display = "block";
+    mobileAir.style.display = "block";
+    mobileSearch.style.display = "block";
+  }
+}
+
+// More details on mobile version and offloading and active some accessibility
+const moreDetails = document.querySelector(".more-details");
+moreDetails.addEventListener("click", () => {
+  mobileAir.style.display = "block";
+  mobileVersion.style.display = "none";
+  mobileSearch.style.display = "none";
+  menuClicked.classList.remove("active");
+  searchForm.classList.remove("active");
+});
+
+// new search city on mobile version and offloading and active some accessibility
+const newSearch = document.querySelector(".new-search");
+newSearch.addEventListener("click", () => {
+  mobileAir.style.display = "none";
+  mobileVersion.style.display = "none";
+  menuClicked.classList.remove("active");
+  mobileSearch.style.display = "block";
+  searchForm.classList.add("active");
+});
+
 // cities locations
 const searchField = document.querySelector("[data-search-field]");
 const searchResult = document.querySelector("[data-search-result]");
@@ -194,11 +198,10 @@ function searchCities(locations) {
     searchField.classList.add("searching");
   }
 
-  // updateWeather()/
   if (searchField.value) {
     searchTimeout = setTimeout(() => {
       searchResult.innerHTML = `
-      <ul class="view-list" data-search-list></ul>`;
+        <ul class="view-list" data-search-list></ul>`;
       const /**{NodeList} | []*/ items = [];
       for (const { name, lat, lon, country, state } of locations) {
         const searchItem = document.createElement("li");
@@ -206,20 +209,20 @@ function searchCities(locations) {
         searchField.classList.remove("searching");
         searchResult.classList.add("active");
         searchItem.innerHTML = `
-        <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler>
-        <div class="view-items">
-          <div>
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-          </div>  
-
-          <div class="city-des">
-          <p class="item-title">${name}</p>
-          <p class="lable-2 item-subtitle">${state || ""} ${country}</p>
-          </div>
-          
-          </div>
-          </a>
-       `;
+          <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler>
+          <div class="view-items">
+            <div>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>  
+  
+            <div class="city-des">
+            <p class="item-title">${name}</p>
+            <p class="lable-2 item-subtitle">${state || ""} ${country}</p>
+            </div>
+            
+            </div>
+            </a>
+         `;
 
         searchResult
           .querySelector("[data-search-list]")
@@ -249,137 +252,140 @@ function updateWeather(lat, lon) {
     .then((data) => {
       nameMobile.innerHTML = data.name;
       currentWeather.innerHTML = `
-        <div class="header-weather">
-        <div class="name-weather">
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          ${data.name} / ${data.sys.country}
+          <div class="header-weather">
+          <div class="name-weather">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            ${data.name} / ${data.sys.country}
+          </div>
+          <div class="header-icon">
+            <div class="circle"></div>
+            <div class="circle-child2"></div>
+          </div>
         </div>
-        <div class="header-icon">
-          <div class="circle"></div>
-          <div class="circle-child2"></div>
-        </div>
-      </div>
-
-      <div class="body-weather">
-      <div class="weather-degree">${data.main.temp.toFixed(0)}<sup>°</sup></div>
-      <div class="weather-description">${data.weather[0].description}</div>
-      <div class="descriptions">
-        <div class="icon-description">
-        <img
-        src="assets/icon/weather-icons/windy.png"
-        alt="windy icon"
-      />
-          <span> Wind </span>
-        </div>
-
-        <div class="line-description"></div>
-
-        <div class="km-description">
-          <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
-        </div>
-      </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
+  
+        <div class="body-weather">
+        <div class="weather-degree">${data.main.temp.toFixed(
+          0
+        )}<sup>°</sup></div>
+        <div class="weather-description">${data.weather[0].description}</div>
+        <div class="descriptions">
+          <div class="icon-description">
           <img
-            src="assets/icon/weather-icons/humid.png"
-            alt="humidity icon"
-          />
-          <span> Hum </span>
+          src="assets/icon/weather-icons/windy.png"
+          alt="windy icon"
+        />
+            <span> Wind </span>
+          </div>
+  
+          <div class="line-description"></div>
+  
+          <div class="km-description">
+            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+          </div>
         </div>
-
-        <div class="line-description"></div>
-
-        <div class="km-description">
-          <span> ${data.main.humidity}% <span id="special">//</span></span>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/humid.png"
+              alt="humidity icon"
+            />
+            <span> Hum </span>
+          </div>
+  
+          <div class="line-description"></div>
+  
+          <div class="km-description">
+            <span> ${data.main.humidity}% <span id="special">//</span></span>
+          </div>
+        </div>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/feels.png"
+              alt="feels icon"
+            />
+            <span> Feels </span>
+          </div>
+  
+          <div class="line-description"></div>
+  
+          <div class="km-description">
+            <span> ${data.main.feels_like.toFixed(
+              0
+            )}% <span id="special">//</span></span>
+          </div>
         </div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/feels.png"
-            alt="feels icon"
-          />
-          <span> Feels </span>
-        </div>
-
-        <div class="line-description"></div>
-
-        <div class="km-description">
-          <span> ${data.main.feels_like.toFixed(
-            0
-          )}% <span id="special">//</span></span>
-        </div>
-      </div>
-    </div>
-    `;
+      `;
 
       // mobile current-loc
       currentLoc[4].innerHTML = `
-      <div class="divided">
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/windy2.png"
-            alt="windy icon"
-          />
-          <span> Wind </span>
+        <div class="divided">
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/windy2.png"
+              alt="windy icon"
+            />
+            <span> Wind </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+          </div>
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/humid2.png"
+              alt="humidity icon"
+            />
+            <span> Hum </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.humidity}% <span id="special">//</span></span>
+          </div>
+        </div>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/feels2.png"
+              alt="feels like icon"
+            />
+            <span> Feels </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.feels_like.toFixed(
+              0
+            )}% <span id="special">//</span></span>
+          </div>
         </div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/humid2.png"
-            alt="humidity icon"
-          />
-          <span> Hum </span>
+  
+      <div class="location-name">
+        <div class="weather-name">
+          <i class="fa fa-map-marker" aria-hidden="true"></i> 
+          ${data.name} / ${data.sys.country}
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.humidity}% <span id="special">//</span></span>
-        </div>
+  
+        <div class="weather-degree">${data.main.temp.toFixed(
+          0
+        )}<sup>°</sup></div>
       </div>
+        `;
 
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/feels2.png"
-            alt="feels like icon"
-          />
-          <span> Feels </span>
-        </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.feels_like.toFixed(
-            0
-          )}% <span id="special">//</span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="location-name">
-      <div class="weather-name">
-        <i class="fa fa-map-marker" aria-hidden="true"></i> 
-        ${data.name} / ${data.sys.country}
-      </div>
-
-      <div class="weather-degree">${data.main.temp.toFixed(0)}<sup>°</sup></div>
-    </div>
-      `;
-
-      //   icons for weather response
       // getting timezone
       let intervalId;
       // Function to update local time for a specific city
@@ -428,43 +434,43 @@ function updateWeather(lat, lon) {
           weatherTime.insertAdjacentHTML(
             "beforeend",
             `
-            <p class="time"> ${localSharing} </p>
-            <p class="date"> ${
-              weekDayNames[currentDate.getDay()] +
-              ", " +
-              currentDate.getDate() +
-              "" +
-              monthNames[currentDate.getMonth()] +
-              " " +
-              currentDate.getFullYear()
-            } </p>
-        
-            <p class="name">
-              ${images}
-        
-                <span>
-                  ${greeting}
-                  <span class="username">${username}</span>
-                </span>
-            </p>
-          `
+              <p class="time"> ${localSharing} </p>
+              <p class="date"> ${
+                weekDayNames[currentDate.getDay()] +
+                ", " +
+                currentDate.getDate() +
+                "" +
+                monthNames[currentDate.getMonth()] +
+                " " +
+                currentDate.getFullYear()
+              } </p>
+          
+              <p class="name">
+                ${images}
+          
+                  <span>
+                    ${greeting}
+                    <span class="username">${username}</span>
+                  </span>
+              </p>
+            `
           );
 
           greetingMobile.innerHTML = "";
           greetingMobile.insertAdjacentHTML(
             "afterbegin",
             `
-            <p class="name">
-              ${images}
-      
-              <span>
-                ${greeting}
-                <span class="username">${username}</span>
-              </span>
-            </p>
-
-            <p class="time">${localSharing}</p>
-          `
+              <p class="name">
+                ${images}
+        
+                <span>
+                  ${greeting}
+                  <span class="username">${username}</span>
+                </span>
+              </p>
+  
+              <p class="time">${localSharing}</p>
+            `
           );
         }
 
@@ -605,60 +611,62 @@ function updateWeather(lat, lon) {
       mobileWeatherRes.insertAdjacentHTML(
         "afterbegin",
         `
-      <div class="weather-icon">
-        <img src="assets/icon/openweathermap/${
-          data.weather[0].icon
-        }.svg" alt="weather icon" />
-      </div>
-
-    <div class="body-weather">
-      <div class="weather-degree">${data.main.temp.toFixed(0)}<sup>°</sup></div>
-      <div class="weather-description">${data.weather[0].description}</div>
-      <div class="weather-date"> ${
-        weekDayNames[currentDate.getDay()] +
-        ", " +
-        currentDate.getDate() +
-        "" +
-        monthNames[currentDate.getMonth()] +
-        " " +
-        currentDate.getFullYear()
-      } </div>
-      <div class="descriptions">
-        <div class="windy-weather">
-          <div class="img">
-            <img src="assets/icon/weather-icons/windy.png" alt="windy" />
+        <div class="weather-icon">
+          <img src="assets/icon/openweathermap/${
+            data.weather[0].icon
+          }.svg" alt="weather icon" />
+        </div>
+  
+      <div class="body-weather">
+        <div class="weather-degree">${data.main.temp.toFixed(
+          0
+        )}<sup>°</sup></div>
+        <div class="weather-description">${data.weather[0].description}</div>
+        <div class="weather-date"> ${
+          weekDayNames[currentDate.getDay()] +
+          ", " +
+          currentDate.getDate() +
+          "" +
+          monthNames[currentDate.getMonth()] +
+          " " +
+          currentDate.getFullYear()
+        } </div>
+        <div class="descriptions">
+          <div class="windy-weather">
+            <div class="img">
+              <img src="assets/icon/weather-icons/windy.png" alt="windy" />
+            </div>
+  
+            <div class="des">
+              <p>Wind</p>
+              <p> ${Math.round(data.wind.speed * 3.6)} km/h </p>
+            </div>
           </div>
-
-          <div class="des">
-            <p>Wind</p>
-            <p> ${Math.round(data.wind.speed * 3.6)} km/h </p>
+  
+          <div class="windy-weather">
+            <div class="img">
+              <img src="assets/icon/weather-icons/humid.png" alt="humidity" />
+            </div>
+  
+            <div class="des">
+              <p>Hum</p>
+              <p> ${data.main.humidity}% </p>
+            </div>
+          </div>
+  
+          <div class="humid-weather">
+            <div class="img">
+              <img src="assets/icon/weather-icons/feels.png" alt="feels like" />
+            </div>
+  
+            <div class="des">
+              <p>Feels</p>
+              <p> ${data.main.feels_like.toFixed(0)}% </p>
+            </div>
           </div>
         </div>
-
-        <div class="windy-weather">
-          <div class="img">
-            <img src="assets/icon/weather-icons/humid.png" alt="humidity" />
-          </div>
-
-          <div class="des">
-            <p>Hum</p>
-            <p> ${data.main.humidity}% </p>
-          </div>
-        </div>
-
-        <div class="humid-weather">
-          <div class="img">
-            <img src="assets/icon/weather-icons/feels.png" alt="feels like" />
-          </div>
-
-          <div class="des">
-            <p>Feels</p>
-            <p> ${data.main.feels_like.toFixed(0)}% </p>
-          </div>
-        </div>
-      </div>
-    </div>            
-      `
+      </div>            
+        `
       );
 
       // Sunset & Sunrize
@@ -705,104 +713,104 @@ function updateWeather(lat, lon) {
       const sunsetMinute = sunsetDate.getMinutes();
 
       suntime[0].innerHTML = `
-        <div class="suntime-name">
-        <div class="city-name">
-          <div>
-            <i
-              class="fa fa-map-marker custom-icon"
-              aria-hidden="true"
-            ></i>
-            <span>${data.name}</span>
-          </div>
-
-          <div>
-            <i
-              class="fa fa-ellipsis-v custom-icon2"
-              aria-hidden="true"
-            ></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="suntime-time">
-        <div class="sunrise">
-          <div>
-            <img
-              src="assets/icon/weather-icons/sunrise.png"
-              alt="sunrise"
-            />
-          </div>
-
-          <div>
-            <p>Sunrise</p>
-            <p class="sunrise-x"></p>
+          <div class="suntime-name">
+          <div class="city-name">
+            <div>
+              <i
+                class="fa fa-map-marker custom-icon"
+                aria-hidden="true"
+              ></i>
+              <span>${data.name}</span>
+            </div>
+  
+            <div>
+              <i
+                class="fa fa-ellipsis-v custom-icon2"
+                aria-hidden="true"
+              ></i>
+            </div>
           </div>
         </div>
-
-        <div class="sunset">
-          <div>
-            <img
-              src="assets/icon/weather-icons/sunset.png"
-              alt="sunset"
-            />
+  
+        <div class="suntime-time">
+          <div class="sunrise">
+            <div>
+              <img
+                src="assets/icon/weather-icons/sunrise.png"
+                alt="sunrise"
+              />
+            </div>
+  
+            <div>
+              <p>Sunrise</p>
+              <p class="sunrise-x"></p>
+            </div>
           </div>
-          <div>
-            <p>Sunset</p>
-            <p class="sunset-x"></p>
+  
+          <div class="sunset">
+            <div>
+              <img
+                src="assets/icon/weather-icons/sunset.png"
+                alt="sunset"
+              />
+            </div>
+            <div>
+              <p>Sunset</p>
+              <p class="sunset-x"></p>
+            </div>
           </div>
         </div>
-      </div>
-        `;
+          `;
 
       suntime[1].innerHTML = `
-        <div class="suntime-name">
-        <div class="city-name">
-          <div>
-            <i
-              class="fa fa-map-marker custom-icon"
-              aria-hidden="true"
-            ></i>
-            <span>${data.name}</span>
-          </div>
-
-          <div>
-            <i
-              class="fa fa-ellipsis-v custom-icon2"
-              aria-hidden="true"
-            ></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="suntime-time">
-        <div class="sunrise">
-          <div>
-            <img
-              src="assets/icon/weather-icons/sunrise.png"
-              alt="sunrise"
-            />
-          </div>
-
-          <div>
-            <p>Sunrise</p>
-            <p class="sunrise-x"></p>
+          <div class="suntime-name">
+          <div class="city-name">
+            <div>
+              <i
+                class="fa fa-map-marker custom-icon"
+                aria-hidden="true"
+              ></i>
+              <span>${data.name}</span>
+            </div>
+  
+            <div>
+              <i
+                class="fa fa-ellipsis-v custom-icon2"
+                aria-hidden="true"
+              ></i>
+            </div>
           </div>
         </div>
-
-        <div class="sunset">
-          <div>
-            <img
-              src="assets/icon/weather-icons/sunset.png"
-              alt="sunset"
-            />
+  
+        <div class="suntime-time">
+          <div class="sunrise">
+            <div>
+              <img
+                src="assets/icon/weather-icons/sunrise.png"
+                alt="sunrise"
+              />
+            </div>
+  
+            <div>
+              <p>Sunrise</p>
+              <p class="sunrise-x"></p>
+            </div>
           </div>
-          <div>
-            <p>Sunset</p>
-            <p class="sunset-x"></p>
+  
+          <div class="sunset">
+            <div>
+              <img
+                src="assets/icon/weather-icons/sunset.png"
+                alt="sunset"
+              />
+            </div>
+            <div>
+              <p>Sunset</p>
+              <p class="sunset-x"></p>
+            </div>
           </div>
         </div>
-      </div>
-        `;
+          `;
 
       // check suntime in different locations
       // check suntime in different locations
@@ -860,280 +868,284 @@ function updateWeather(lat, lon) {
 }
 
 // dubai climate
-function dubaiWather() {
+function dubaiWeather() {
   let tehranApi = `https://api.openweathermap.org/data/2.5/weather?q=dubai&units=metric`;
   fetch(`${tehranApi}&appid=${api_key}`)
     .then((response) => response.json())
     .then((data) => {
       currentLoc[0].innerHTML = `
-        <div class="divided">
-        <div class="descriptions distance">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/windy2.png"
-              alt="windy icon"
-            />
-            <span> Wind </span>
+          <div class="divided">
+          <div class="descriptions distance">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/windy2.png"
+                alt="windy icon"
+              />
+              <span> Wind </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+            </div>
           </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+  
+          <div class="descriptions distance">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/humid2.png"
+                alt="humidity icon"
+              />
+              <span> Hum </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${data.main.humidity}% <span id="special">//</span></span>
+            </div>
+          </div>
+  
+          <div class="descriptions">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/feels2.png"
+                alt="feels like icon"
+              />
+              <span> Feels </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${data.main.feels_like.toFixed(
+                0
+              )}% <span id="special">//</span></span>
+            </div>
           </div>
         </div>
-
-        <div class="descriptions distance">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/humid2.png"
-              alt="humidity icon"
-            />
-            <span> Hum </span>
+  
+        <div class="location-name">
+          <div class="weather-name">
+            <i class="fa fa-map-marker" aria-hidden="true"></i> 
+            ${data.name} / ${data.sys.country}
           </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${data.main.humidity}% <span id="special">//</span></span>
-          </div>
+  
+          <div class="weather-degree">${data.main.temp.toFixed(
+            0
+          )}<sup>°</sup></div>
         </div>
-
-        <div class="descriptions">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/feels2.png"
-              alt="feels like icon"
-            />
-            <span> Feels </span>
-          </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${data.main.feels_like.toFixed(
-              0
-            )}% <span id="special">//</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="location-name">
-        <div class="weather-name">
-          <i class="fa fa-map-marker" aria-hidden="true"></i> 
-          ${data.name} / ${data.sys.country}
-        </div>
-
-        <div class="weather-degree">${data.main.temp.toFixed(
-          0
-        )}<sup>°</sup></div>
-      </div>
-        `;
+          `;
 
       currentLoc[2].innerHTML = `
-        <div class="divided">
-        <div class="descriptions distance">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/windy2.png"
-              alt="windy icon"
-            />
-            <span> Wind </span>
+          <div class="divided">
+          <div class="descriptions distance">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/windy2.png"
+                alt="windy icon"
+              />
+              <span> Wind </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+            </div>
           </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+  
+          <div class="descriptions distance">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/humid2.png"
+                alt="humidity icon"
+              />
+              <span> Hum </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${data.main.humidity}% <span id="special">//</span></span>
+            </div>
+          </div>
+  
+          <div class="descriptions">
+            <div class="icon-description">
+              <img
+                src="assets/icon/weather-icons/feels2.png"
+                alt="feels like icon"
+              />
+              <span> Feels </span>
+            </div>
+  
+            <div>&ensp;-</div>
+  
+            <div class="km-description">
+              <span> ${data.main.feels_like.toFixed(
+                0
+              )}% <span id="special">//</span></span>
+            </div>
           </div>
         </div>
-
-        <div class="descriptions distance">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/humid2.png"
-              alt="humidity icon"
-            />
-            <span> Hum </span>
+  
+        <div class="location-name">
+          <div class="weather-name">
+            <i class="fa fa-map-marker" aria-hidden="true"></i> 
+            ${data.name} / ${data.sys.country}
           </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${data.main.humidity}% <span id="special">//</span></span>
-          </div>
+  
+          <div class="weather-degree">${data.main.temp.toFixed(
+            0
+          )}<sup>°</sup></div>
         </div>
-
-        <div class="descriptions">
-          <div class="icon-description">
-            <img
-              src="assets/icon/weather-icons/feels2.png"
-              alt="feels like icon"
-            />
-            <span> Feels </span>
-          </div>
-
-          <div>&ensp;-</div>
-
-          <div class="km-description">
-            <span> ${data.main.feels_like.toFixed(
-              0
-            )}% <span id="special">//</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="location-name">
-        <div class="weather-name">
-          <i class="fa fa-map-marker" aria-hidden="true"></i> 
-          ${data.name} / ${data.sys.country}
-        </div>
-
-        <div class="weather-degree">${data.main.temp.toFixed(
-          0
-        )}<sup>°</sup></div>
-      </div>
-        `;
+          `;
 
       localStorage.getItem("backgroundImage");
     });
 }
-dubaiWather();
+dubaiWeather();
 
 // NY climate
-function newYorkWather() {
+function newYorkWeather() {
   let tehranApi = `https://api.openweathermap.org/data/2.5/weather?q=New%20York&units=metric`;
   fetch(`${tehranApi}&appid=${api_key}`)
     .then((response) => response.json())
     .then((data) => {
       currentLoc[1].innerHTML = `
-      <div class="divided">
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/windy2.png"
-            alt="windy icon"
-          />
-          <span> Wind </span>
+        <div class="divided">
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/windy2.png"
+              alt="windy icon"
+            />
+            <span> Wind </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+          </div>
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/humid2.png"
+              alt="humidity icon"
+            />
+            <span> Hum </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.humidity}% <span id="special">//</span></span>
+          </div>
+        </div>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/feels2.png"
+              alt="feels like icon"
+            />
+            <span> Feels </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.feels_like.toFixed(
+              0
+            )}% <span id="special">//</span></span>
+          </div>
         </div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/humid2.png"
-            alt="humidity icon"
-          />
-          <span> Hum </span>
+  
+      <div class="location-name">
+        <div class="weather-name">
+          <i class="fa fa-map-marker" aria-hidden="true"></i> 
+          ${data.name} / ${data.sys.country}
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.humidity}% <span id="special">//</span></span>
-        </div>
+  
+        <div class="weather-degree">${data.main.temp.toFixed(
+          0
+        )}<sup>°</sup></div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/feels2.png"
-            alt="feels like icon"
-          />
-          <span> Feels </span>
-        </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.feels_like.toFixed(
-            0
-          )}% <span id="special">//</span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="location-name">
-      <div class="weather-name">
-        <i class="fa fa-map-marker" aria-hidden="true"></i> 
-        ${data.name} / ${data.sys.country}
-      </div>
-
-      <div class="weather-degree">${data.main.temp.toFixed(0)}<sup>°</sup></div>
-    </div>
-      `;
+        `;
 
       currentLoc[3].innerHTML = `
-      <div class="divided">
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/windy2.png"
-            alt="windy icon"
-          />
-          <span> Wind </span>
+        <div class="divided">
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/windy2.png"
+              alt="windy icon"
+            />
+            <span> Wind </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+          </div>
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${Math.round(data.wind.speed * 3.6)} km/h</span>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/humid2.png"
+              alt="humidity icon"
+            />
+            <span> Hum </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.humidity}% <span id="special">//</span></span>
+          </div>
+        </div>
+  
+        <div class="descriptions">
+          <div class="icon-description">
+            <img
+              src="assets/icon/weather-icons/feels2.png"
+              alt="feels like icon"
+            />
+            <span> Feels </span>
+          </div>
+  
+          <div>&ensp;-</div>
+  
+          <div class="km-description">
+            <span> ${data.main.feels_like.toFixed(
+              0
+            )}% <span id="special">//</span></span>
+          </div>
         </div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/humid2.png"
-            alt="humidity icon"
-          />
-          <span> Hum </span>
+  
+      <div class="location-name">
+        <div class="weather-name">
+          <i class="fa fa-map-marker" aria-hidden="true"></i> 
+          ${data.name} / ${data.sys.country}
         </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.humidity}% <span id="special">//</span></span>
-        </div>
+  
+        <div class="weather-degree">${data.main.temp.toFixed(
+          0
+        )}<sup>°</sup></div>
       </div>
-
-      <div class="descriptions">
-        <div class="icon-description">
-          <img
-            src="assets/icon/weather-icons/feels2.png"
-            alt="feels like icon"
-          />
-          <span> Feels </span>
-        </div>
-
-        <div>&ensp;-</div>
-
-        <div class="km-description">
-          <span> ${data.main.feels_like.toFixed(
-            0
-          )}% <span id="special">//</span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="location-name">
-      <div class="weather-name">
-        <i class="fa fa-map-marker" aria-hidden="true"></i> 
-        ${data.name} / ${data.sys.country}
-      </div>
-
-      <div class="weather-degree">${data.main.temp.toFixed(0)}<sup>°</sup></div>
-    </div>
-      `;
+        `;
     });
 }
-newYorkWather();
+newYorkWeather();
 
 // Air quality
 function airPollution(lat, lon) {
@@ -1159,102 +1171,102 @@ function airPollution(lat, lon) {
       }
 
       statusGroup[0].innerHTML = `
-        <div>
-          ${level}
-          <div class="aqi-message">${message}</div>
-        </div>
-      `;
-
-      statusGroup[1].innerHTML = `
           <div>
             ${level}
             <div class="aqi-message">${message}</div>
           </div>
         `;
 
+      statusGroup[1].innerHTML = `
+            <div>
+              ${level}
+              <div class="aqi-message">${message}</div>
+            </div>
+          `;
+
       statusForecast[0].innerHTML = `
-        <div class="status-forecast-structure">
-            <h5>${data.list[0].components.co.toPrecision(3)}</h5>
-            <h6>CO</h6>
-          </div>
-      
           <div class="status-forecast-structure">
-            <h5>${data.list[0].components.nh3.toPrecision(3)}</h5>
-            <h6>NH3</h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.no.toPrecision(3)}</h5>
-            <h6>NO</h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.no2.toPrecision(3)}</h5>
-            <h6>NO<sub>2</sub></h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.o3.toPrecision(3)}</h5>
-            <h6>O<sub>3</sub></h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.pm2_5.toPrecision(3)}</h5>
-            <h6>PM2</h6>
-          </div>
-              
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.pm10.toPrecision(3)}</h5>
-            <h6>PM10</h6>
-          </div>
-              
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.so2.toPrecision(3)}</h5>
-            <h6>SO<sub>2</sub></h6>
-          </div>
-      `;
+              <h5>${data.list[0].components.co.toPrecision(3)}</h5>
+              <h6>CO</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.nh3.toPrecision(3)}</h5>
+              <h6>NH3</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.no.toPrecision(3)}</h5>
+              <h6>NO</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.no2.toPrecision(3)}</h5>
+              <h6>NO<sub>2</sub></h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.o3.toPrecision(3)}</h5>
+              <h6>O<sub>3</sub></h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.pm2_5.toPrecision(3)}</h5>
+              <h6>PM2</h6>
+            </div>
+                
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.pm10.toPrecision(3)}</h5>
+              <h6>PM10</h6>
+            </div>
+                
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.so2.toPrecision(3)}</h5>
+              <h6>SO<sub>2</sub></h6>
+            </div>
+        `;
 
       statusForecast[1].innerHTML = `
-        <div class="status-forecast-structure">
-            <h5>${data.list[0].components.co.toPrecision(3)}</h5>
-            <h6>CO</h6>
-          </div>
-      
           <div class="status-forecast-structure">
-            <h5>${data.list[0].components.nh3.toPrecision(3)}</h5>
-            <h6>NH3</h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.no.toPrecision(3)}</h5>
-            <h6>NO</h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.no2.toPrecision(3)}</h5>
-            <h6>NO<sub>2</sub></h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.o3.toPrecision(3)}</h5>
-            <h6>O<sub>3</sub></h6>
-          </div>
-      
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.pm2_5.toPrecision(3)}</h5>
-            <h6>PM2</h6>
-          </div>
-              
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.pm10.toPrecision(3)}</h5>
-            <h6>PM10</h6>
-          </div>
-              
-          <div class="status-forecast-structure">
-            <h5>${data.list[0].components.so2.toPrecision(3)}</h5>
-            <h6>SO<sub>2</sub></h6>
-          </div>
-      `;
+              <h5>${data.list[0].components.co.toPrecision(3)}</h5>
+              <h6>CO</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.nh3.toPrecision(3)}</h5>
+              <h6>NH3</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.no.toPrecision(3)}</h5>
+              <h6>NO</h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.no2.toPrecision(3)}</h5>
+              <h6>NO<sub>2</sub></h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.o3.toPrecision(3)}</h5>
+              <h6>O<sub>3</sub></h6>
+            </div>
+        
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.pm2_5.toPrecision(3)}</h5>
+              <h6>PM2</h6>
+            </div>
+                
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.pm10.toPrecision(3)}</h5>
+              <h6>PM10</h6>
+            </div>
+                
+            <div class="status-forecast-structure">
+              <h5>${data.list[0].components.so2.toPrecision(3)}</h5>
+              <h6>SO<sub>2</sub></h6>
+            </div>
+        `;
     });
 }
 
@@ -1285,69 +1297,77 @@ function getForecast(lat, lon) {
         forecastShow[0].insertAdjacentHTML(
           "beforeend",
           `<div class="day">
-        <div class="img">
-          <img src="assets/icon/openweathermap/${
-            forecast.weather[0].icon
-          }.svg" alt="icon" />
+          <div class="img">
+            <img src="assets/icon/openweathermap/${
+              forecast.weather[0].icon
+            }.svg" alt="icon" />
+          </div>
+          <div class="day-description">
+            <div class="day-name">${formattedDate}</div>
+            <div class="day-hour">${estimate}:00  ${estimated}</div>
+            <div class="degree">${forecast.main.temp.toFixed(
+              0
+            )}<sup>°</sup></div>
+          </div>
         </div>
-        <div class="day-description">
-          <div class="day-name">${formattedDate}</div>
-          <div class="day-hour">${estimate}:00  ${estimated}</div>
-          <div class="degree">${forecast.main.temp.toFixed(0)}<sup>°</sup></div>
-        </div>
-      </div>
-        `
+          `
         );
 
         forecastShow[1].insertAdjacentHTML(
           "beforeend",
           `<div class="day">
-        <div class="img">
-          <img src="assets/icon/openweathermap/${
-            forecast.weather[0].icon
-          }.svg" alt="icon" />
+          <div class="img">
+            <img src="assets/icon/openweathermap/${
+              forecast.weather[0].icon
+            }.svg" alt="icon" />
+          </div>
+          <div class="day-description">
+            <div class="day-name">${formattedDate}</div>
+            <div class="day-hour">${estimate}:00  ${estimated}</div>
+            <div class="degree">${forecast.main.temp.toFixed(
+              0
+            )}<sup>°</sup></div>
+          </div>
         </div>
-        <div class="day-description">
-          <div class="day-name">${formattedDate}</div>
-          <div class="day-hour">${estimate}:00  ${estimated}</div>
-          <div class="degree">${forecast.main.temp.toFixed(0)}<sup>°</sup></div>
-        </div>
-      </div>
-        `
+          `
         );
 
         forecastShow[2].insertAdjacentHTML(
           "beforeend",
           `<div class="day">
-        <div class="img">
-          <img src="assets/icon/openweathermap/${
-            forecast.weather[0].icon
-          }.svg" alt="icon" />
+          <div class="img">
+            <img src="assets/icon/openweathermap/${
+              forecast.weather[0].icon
+            }.svg" alt="icon" />
+          </div>
+          <div class="day-description">
+            <div class="day-name">${formattedDate}</div>
+            <div class="day-hour">${estimate}:00  ${estimated}</div>
+            <div class="degree">${forecast.main.temp.toFixed(
+              0
+            )}<sup>°</sup></div>
+          </div>
         </div>
-        <div class="day-description">
-          <div class="day-name">${formattedDate}</div>
-          <div class="day-hour">${estimate}:00  ${estimated}</div>
-          <div class="degree">${forecast.main.temp.toFixed(0)}<sup>°</sup></div>
-        </div>
-      </div>
-        `
+          `
         );
 
         forecastShow[3].insertAdjacentHTML(
           "beforeend",
           `<div class="day">
-        <div class="img">
-          <img src="assets/icon/openweathermap/${
-            forecast.weather[0].icon
-          }.svg" alt="icon" />
+          <div class="img">
+            <img src="assets/icon/openweathermap/${
+              forecast.weather[0].icon
+            }.svg" alt="icon" />
+          </div>
+          <div class="day-description">
+            <div class="day-name">${formattedDate}</div>
+            <div class="day-hour">${estimate}:00  ${estimated}</div>
+            <div class="degree">${forecast.main.temp.toFixed(
+              0
+            )}<sup>°</sup></div>
+          </div>
         </div>
-        <div class="day-description">
-          <div class="day-name">${formattedDate}</div>
-          <div class="day-hour">${estimate}:00  ${estimated}</div>
-          <div class="degree">${forecast.main.temp.toFixed(0)}<sup>°</sup></div>
-        </div>
-      </div>
-        `
+          `
         );
       });
     });
@@ -1392,51 +1412,51 @@ function getSunriseSunset() {
     highlightCities.insertAdjacentHTML(
       "beforeend",
       `
-      <div class="cities">
-          <div class="city-name">
-            <h3>
-              <i
-                class="fa fa-map-marker custom-icon"
-                aria-hidden="true"
-              ></i>
-              ${city.name}
-            </h3>
+        <div class="cities">
+            <div class="city-name">
+              <h3>
+                <i
+                  class="fa fa-map-marker custom-icon"
+                  aria-hidden="true"
+                ></i>
+                ${city.name}
+              </h3>
+            </div>
+            <div class="city-sunrise">
+              <p>
+                <i class="fa fa-sun-o custom-icon" aria-hidden="true"></i>
+                <span class="sunrise-hl">
+                ${
+                  city.name === "Dubai"
+                    ? dubaiSunrise
+                    : city.name === "Windsor"
+                    ? windsorSunrise
+                    : city.name === "Tehran"
+                    ? tehranSunrise
+                    : yorkSunrise
+                }
+                </span>
+              </p>
+            </div>
+            <div class="city-sunset">
+              <p>
+                <i
+                  class="fa fa-moon-o custom-icon"
+                  aria-hidden="true"
+                ></i>
+                <span class="sunset-hl">${
+                  city.name === "Dubai"
+                    ? dubaiSunset
+                    : city.name === "Windsor"
+                    ? windsorSunset
+                    : city.name === "Tehran"
+                    ? tehranSunset
+                    : yorkSunset
+                }</span>
+              </p>
+            </div>
           </div>
-          <div class="city-sunrise">
-            <p>
-              <i class="fa fa-sun-o custom-icon" aria-hidden="true"></i>
-              <span class="sunrise-hl">
-              ${
-                city.name === "Dubai"
-                  ? dubaiSunrise
-                  : city.name === "Windsor"
-                  ? windsorSunrise
-                  : city.name === "Tehran"
-                  ? tehranSunrise
-                  : yorkSunrise
-              }
-              </span>
-            </p>
-          </div>
-          <div class="city-sunset">
-            <p>
-              <i
-                class="fa fa-moon-o custom-icon"
-                aria-hidden="true"
-              ></i>
-              <span class="sunset-hl">${
-                city.name === "Dubai"
-                  ? dubaiSunset
-                  : city.name === "Windsor"
-                  ? windsorSunset
-                  : city.name === "Tehran"
-                  ? tehranSunset
-                  : yorkSunset
-              }</span>
-            </p>
-          </div>
-        </div>
-   `
+     `
     );
   });
 }
@@ -1469,8 +1489,8 @@ const searchedLocation = (query) => {
   getForecast(...query.split("&"));
   airPollution(...query.split("&"));
 };
-// updateWeather("lat=51.5073219", "lon=-0.1276474");
 
+// after DOM loaded, profile photo will be saved on localStorage
 document.addEventListener("DOMContentLoaded", () => {
   // Setting profile pic
   // Code for handling localStorage
@@ -1504,12 +1524,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Other initialization code can go here
 });
 
+//   Window loads
 window.addEventListener("load", function () {
   if (!window.location.hash) {
     window.location.hash = "#/current-location";
-    // console.log(currentDate.toLocaleTimeString());
   } else {
-    // console.log(currentDate.getHours() + "" + currentDate.getMinutes());
     checkHash();
   }
 
@@ -1525,7 +1544,7 @@ window.addEventListener("load", function () {
     username = storedName;
   } else {
     this.setTimeout(() => {
-      username = prompt("May I have your name please ?");
+      username = prompt("May I have your name please?");
       if (username == null || username == "") {
         username = "Dear!";
       } else {
@@ -1535,6 +1554,7 @@ window.addEventListener("load", function () {
   }
 });
 
+// Routes and checking hash
 const routes = new Map([
   ["/current-location", currentLocation],
   ["/weather", searchedLocation],
